@@ -1,4 +1,4 @@
-import { removeContact } from "../../models/contacts.js";
+import { removeContact } from "#models/contacts.js";
 
 async function deleteContacts(req, res, next) {
   try {
@@ -6,7 +6,7 @@ async function deleteContacts(req, res, next) {
     if (!contacId) {
       return res.status(404).json({ message: "Not found" });
     }
-    res.status(200).json({ contacId, message: "contact deleted" });
+    return res.status(200).json({ contacId, message: "contact deleted" });
   } catch (error) {
     next(error);
   }
