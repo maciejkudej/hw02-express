@@ -2,7 +2,8 @@ import { getContactById } from "#models/contacts.js";
 
 async function showContacts(req, res, next) {
   try {
-    const contactId = await getContactById(req.params.contactId);
+    const { _id: owner } = req.user;
+    const contactId = await getContactById(req.params.contactId, owner);
     if (!contactId) {
       return res.status(404).json({ message: "Not found" });
     }

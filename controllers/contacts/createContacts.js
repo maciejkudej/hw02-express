@@ -2,7 +2,8 @@ import { addContact } from "#models/contacts.js";
 
 async function createContacts(req, res, next) {
   try {
-    const postContact = await addContact(req.body);
+    const { _id: owner } = req.user;
+    const postContact = await addContact(req.body, owner);
     return res.status(201).json({ postContact });
   } catch (error) {
     next(error);
