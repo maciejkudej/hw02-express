@@ -6,22 +6,28 @@ import { createContacts } from "#controllers/contacts/createContacts.js";
 import { updateContacts } from "#controllers/contacts/updateContacts.js";
 import { updateStatusContacts } from "#controllers/contacts/updateStatusContacts.js";
 import { bodyValidate } from "#middlewares/validate.js";
+import { authenticate } from "#middlewares/authenticate.js";
 import { addDataSchema, updateDataSchema } from "#validators/validation.js";
 
-const router = express.Router();
+const contactsRouter = express.Router();
+contactsRouter.use(authenticate);
 
-router.get("/", indexContacts);
+contactsRouter.get("/", indexContacts);
 
-router.get("/:contactId", showContacts);
+contactsRouter.get("/:contactId", showContacts);
 
-router.post("/", bodyValidate(addDataSchema), createContacts);
+contactsRouter.post("/", bodyValidate(addDataSchema), createContacts);
 
-router.delete("/:contactId", deleteContacts);
+contactsRouter.delete("/:contactId", deleteContacts);
 
-router.put("/:contactId", bodyValidate(updateDataSchema), updateContacts);
-router.patch(
+contactsRouter.put(
+  "/:contactId",
+  bodyValidate(updateDataSchema),
+  updateContacts
+);
+contactsRouter.patch(
   "/:contactId/favorite",
   bodyValidate(addDataSchema),
   updateStatusContacts
 );
-export { router };
+export { contactsRouter };

@@ -22,4 +22,11 @@ const updateDataSchema = Joi.object({
   phone: Joi.string().min(9).max(30),
 }).min(1);
 
-export { addDataSchema, updateDataSchema };
+const addUserSchema = Joi.object({
+  email: Joi.string()
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+    .required(),
+  password: Joi.string().min(6).max(30).required(),
+});
+
+export { addDataSchema, updateDataSchema, addUserSchema };
