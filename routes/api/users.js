@@ -3,9 +3,11 @@ import { createUsers } from "#controllers/users/createUsers.js";
 import { loginUsers } from "#controllers/users/loginUsers.js";
 import { logoutUsers } from "#controllers/users/logoutUsers.js";
 import { getCurrenctUsers } from "#controllers/users/getCurrentUsers.js";
+import { updateUserAvatars } from "#controllers/users/updateUserAvatars.js";
 import { authenticate } from "#middlewares/authenticate.js";
 import { bodyValidate } from "#middlewares/validate.js";
 import { addUserSchema } from "#validators/validation.js";
+import { upload } from "#middlewares/avatarMiddleware.js";
 
 const usersRouter = express.Router();
 
@@ -18,5 +20,7 @@ usersRouter.use(authenticate);
 usersRouter.get("/logout", logoutUsers);
 
 usersRouter.get("/current", getCurrenctUsers);
+
+usersRouter.patch("/avatars", upload.single("avatar"), updateUserAvatars);
 
 export { usersRouter };
