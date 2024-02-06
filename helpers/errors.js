@@ -16,5 +16,16 @@ class UnauthorizedError extends Error {
     this.status = 401;
   }
 }
+class NotFound extends Error {
+  constructor(message) {
+    super(message);
+    this.status = 404;
+  }
+}
 
-export { AuthorizationError, RegistrationConflictError, UnauthorizedError };
+export {
+  AuthorizationError,
+  RegistrationConflictError,
+  UnauthorizedError,
+  NotFound,
+};
